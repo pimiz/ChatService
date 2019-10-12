@@ -1,6 +1,5 @@
 #include <QtCore/QCoreApplication>
 #include "ServerListenerFactory.h"
-#include "ChatClientConnectionFactory.h"
 #include "ChatClientManager.h"
 #include "AbstractServerListener.h"
 #include <iostream>

@@ -13,7 +13,6 @@ namespace ChatServer
 	public:
 		// Create a chat client object.
 		// This could be overloaded for all supported connection types
-		//static std::shared_ptr<AbstractClient> createClient(QTcpSocket *p_tcpSocket);
 		template <typename T>
 		static std::shared_ptr<AbstractClient> createClient(T* p_Socket)
 		{

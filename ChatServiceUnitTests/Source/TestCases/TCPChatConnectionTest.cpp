@@ -2,7 +2,7 @@
 #include "ChatClient/Source/ChatConnectionFactory.h"
 #include <QApplication>
 
-using namespace ::testing;	
+using namespace testing;
 
 namespace ChatServiceUnitTests
 {
@@ -12,8 +12,8 @@ namespace ChatServiceUnitTests
 	{
 		// Create "fake" command line arguments
 		int argc = 3;
-		char* argv[3] = { "ChatClient.exe", "localhost", "1337" };
-		
+		char* argv[3] = {"ChatClient.exe", "localhost", "1337"};
+
 		// Construct a QApplication
 		QApplication app(argc, &argv[0]);
 
@@ -21,7 +21,7 @@ namespace ChatServiceUnitTests
 		_host = argv[1];
 		_port = atoi(argv[2]);
 	}
-		
+
 	void TCPChatConnectionTest::SetUp()
 	{
 		// Construct an instance of Chat TCP Client and cast it to its native interface.
@@ -30,7 +30,8 @@ namespace ChatServiceUnitTests
 		{
 			// ERROR
 		}
-		_TCPChatConnection = std::dynamic_pointer_cast<ChatClient::TCPChatConnection, ChatClient::AbstractChatConnection>(baseClient);
+		_TCPChatConnection = std::dynamic_pointer_cast<
+			ChatClient::TCPChatConnection, ChatClient::AbstractChatConnection>(baseClient);
 		_mockQTcpSocket = std::make_shared<MockQTcpSocket>();
 		_TCPChatConnection->setSocket(_mockQTcpSocket);
 	}
@@ -39,7 +40,7 @@ namespace ChatServiceUnitTests
 	{
 		_TCPChatConnection.reset();
 	}
-	
+
 	QString TCPChatConnectionTest::getHost() const
 	{
 		return _host;
@@ -50,12 +51,12 @@ namespace ChatServiceUnitTests
 		return _port;
 	}
 
-	bool TCPChatConnectionTest::connect() 
+	bool TCPChatConnectionTest::connect()
 	{
 		return _TCPChatConnection->connectToServer(getHost(), getPort());
 	}
 
-	void TCPChatConnectionTest::disconnect() 
+	void TCPChatConnectionTest::disconnect()
 	{
 		_TCPChatConnection->disconnect();
 	}
@@ -65,7 +66,7 @@ namespace ChatServiceUnitTests
 		return _TCPChatConnection->isConnected();
 	}
 
-	void TCPChatConnectionTest::sendMessage(const QString &p_message)
+	void TCPChatConnectionTest::sendMessage(const QString& p_message)
 	{
 		_TCPChatConnection->sendMessage(p_message);
 	}
@@ -151,7 +152,7 @@ namespace ChatServiceUnitTests
 		auto seed = std::chrono::high_resolution_clock::now().time_since_epoch().count();
 		mt_rand.seed(static_cast<unsigned>(seed));
 
-		auto genRandom = [](std::mt19937 & mt, int ls, int rs)
+		auto genRandom = [](std::mt19937& mt, int ls, int rs)
 		{
 			std::uniform_int_distribution<int> distribution(ls, rs);
 			return distribution(mt);
@@ -163,9 +164,9 @@ namespace ChatServiceUnitTests
 		for (int i = 0; i < amountOfMessages; ++i)
 		{
 			std::string randomString(genRandom(mt_rand, 0, 100), ' ');
-			std::generate(std::begin(randomString), 
-				std::end(randomString),
-				[&]() { return '0' + (genRandom(mt_rand, 0, 126)); });
+			std::generate(std::begin(randomString),
+			              std::end(randomString),
+			              [&]() { return '0' + (genRandom(mt_rand, 0, 126)); });
 			EXPECT_CALL(*_mockQTcpSocket.get(), write(_))
 				.WillOnce(Return(QByteArray(randomString.c_str()).size()));
 
@@ -186,7 +187,7 @@ namespace ChatServiceUnitTests
 		EXPECT_CALL(*dataStream, startTransaction());
 		EXPECT_CALL(*dataStream, commitTransaction())
 			.WillOnce(Return(true));
-			
+
 		emit _mockQTcpSocket->readyRead();
 		QApplication::processEvents();
 		EXPECT_STREQ(message.toStdString().c_str(), msgRcvr._receivedMessage.toStdString().c_str());

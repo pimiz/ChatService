@@ -3,7 +3,6 @@
 #include <QList>
 #include <memory>
 
-
 namespace ChatServer
 {
 	class AbstractClient;

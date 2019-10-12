@@ -66,7 +66,7 @@ target_include_directories(ChatServiceUnitTests PUBLIC ${GMOCK_INCLUDE_DIR})
 target_include_directories(ChatServiceUnitTests PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/Source/")	
 
 set_target_properties(ChatServiceUnitTests PROPERTIES
-            CXX_STANDARD 17
+            CXX_STANDARD 14
             )
 			
 target_link_libraries(ChatServiceUnitTests Qt5::Core Qt5::Network Qt5::Gui Qt5::Widgets)

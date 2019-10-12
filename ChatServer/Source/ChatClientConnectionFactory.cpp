@@ -2,10 +2,6 @@
 #include "TCPClient.h"
 #include "DummyClient.h"
 
-
-#include <iostream>
-
-
 namespace ChatServer
 {
 	std::shared_ptr<AbstractClient> ChatClientConnectionFactory::createClientPrivate(QTcpSocket* p_tcpSocket)
@@ -29,7 +25,6 @@ namespace ChatServer
 
 	std::shared_ptr<AbstractClient> ChatClientConnectionFactory::createClientPrivate(DummySocket* p_dummySocket)
 	{
-		std::cout << __FUNCTION__ << std::endl;
 		return std::make_shared<DummyClient>(p_dummySocket);
 	}
 }

@@ -1,6 +1,3 @@
-// Gtest
-#include "pch.h"
-
 // Test cases
 #include "TestCases/TCPChatConnectionTest.h"
 

@@ -7,7 +7,6 @@ namespace ChatServiceUnitTests
 	class MockQDataStream : public QDataStream
 	{
 	public:
-
 		// originally non-virtual methods
 		MOCK_METHOD0(startTransaction, void());
 		MOCK_METHOD0(commitTransaction, bool());

@@ -7,7 +7,6 @@ namespace ChatServiceUnitTests
 	class MockQTcpSocket : public QTcpSocket
 	{
 	public:
-
 		MOCK_METHOD2(connectToHost, void(const QString &hostName, quint16 port));
 		MOCK_METHOD1(waitForConnected, bool(int msecs));
 		MOCK_METHOD0(disconnectFromHost, void());
